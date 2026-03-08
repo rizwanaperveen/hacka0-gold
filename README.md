@@ -1,239 +1,527 @@
-# AI Employee - Silver Tier
+# Gold Tier Autonomous AI Employee
 
-Your autonomous AI Employee built with Claude Code, Obsidian, and Python watchers.
+**Production-Ready Autonomous AI Employee System**
 
-## What is This?
+A comprehensive, production-grade autonomous AI employee system with multi-agent architecture, cross-domain integration, and full audit trail capabilities.
 
-This is a **Silver Tier** implementation of the Personal AI Employee from the Panaversity Hackathon 0. It's an autonomous system that:
+## 🏗️ Architecture Overview
 
-- 📧 Monitors Gmail for important emails
-- 💬 Watches WhatsApp for urgent messages
-- 💼 Tracks LinkedIn for engagement opportunities
-- 🤖 Uses Claude Code to reason and plan actions
-- ✅ Implements human-in-the-loop approval for sensitive actions
-- 📊 Maintains a dashboard in Obsidian
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                      Gold Tier Architecture                      │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  ┌──────────────────────────────────────────────────────────┐   │
+│  │                    Entry Point (main.py)                  │   │
+│  └──────────────────────────────────────────────────────────┘   │
+│                              │                                   │
+│                              ▼                                   │
+│  ┌──────────────────────────────────────────────────────────┐   │
+│  │                   Core Layer                              │   │
+│  │  ┌─────────────┐ ┌─────────────┐ ┌─────────────────────┐  │   │
+│  │  │Orchestrator │ │ Ralph Loop  │ │ Audit Logger        │  │   │
+│  │  └─────────────┘ └─────────────┘ └─────────────────────┘  │   │
+│  │  ┌─────────────┐ ┌─────────────┐                          │   │
+│  │  │Error Handler│ │Briefing Gen │                          │   │
+│  │  └─────────────┘ └─────────────┘                          │   │
+│  └──────────────────────────────────────────────────────────┘   │
+│                              │                                   │
+│              ┌───────────────┼───────────────┐                   │
+│              ▼               ▼               ▼                   │
+│  ┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐    │
+│  │  Agents Layer   │ │  Skills Layer   │ │ Integrations    │    │
+│  │  ┌───────────┐  │ │  ┌───────────┐  │ │  ┌───────────┐  │    │
+│  │  │CEO Agent  │  │ │  │Personal   │  │ │  │Gmail      │  │    │
+│  │  │Cross-Domain│ │ │  │Business   │  │ │  │Calendar   │  │    │
+│  │  │Personal   │  │ │  │Social     │  │ │  │Facebook   │  │    │
+│  │  │Business   │  │ │  │Technical  │  │ │  │Instagram  │  │    │
+│  │  │Social     │  │ │  │           │  │ │  │Twitter    │  │    │
+│  │  │Technical  │  │ │  │           │  │ │  │LinkedIn   │  │    │
+│  │  └───────────┘  │ │  └───────────┘  │ │  └───────────┘  │    │
+│  └─────────────────┘ └─────────────────┘ └─────────────────┘    │
+│                              │                                   │
+│                              ▼                                   │
+│  ┌──────────────────────────────────────────────────────────┐   │
+│  │              MCP Servers (FastAPI)                        │   │
+│  │  ┌─────────────┐ ┌─────────────┐ ┌─────────────────────┐  │   │
+│  │  │Personal :8001│ │Business :8002│ │Social :8003       │  │   │
+│  │  └─────────────┘ └─────────────┘ └─────────────────────┘  │   │
+│  └──────────────────────────────────────────────────────────┘   │
+│                              │                                   │
+│                              ▼                                   │
+│  ┌──────────────────────────────────────────────────────────┐   │
+│  │           AI_Employee_Vault (Data Only)                   │   │
+│  │  Inbox → Needs_Action → Approved → Plans → Done          │   │
+│  └──────────────────────────────────────────────────────────┘   │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-## Features
+## 📁 Project Structure
 
-### Watchers (Perception Layer)
-- **Gmail Watcher**: Monitors important unread emails
-- **WhatsApp Watcher**: Detects urgent messages with keywords
-- **LinkedIn Watcher**: Tracks messages and posting opportunities
+```
+hacka0-gold/
+├── main.py                          # Single entry point
+├── config.py                        # Configuration management
+├── requirements.txt                 # Python dependencies
+├── package.json                     # Node.js dependencies (for MCP)
+│
+├── core/                            # Core orchestration layer
+│   ├── __init__.py
+│   ├── orchestrator.py              # Main system orchestrator
+│   │
+│   ├── autonomous_loop/
+│   │   └── ralph_wiggum.py          # Ralph Wiggum autonomous loop
+│   │
+│   ├── audit/
+│   │   └── audit_logger.py          # Comprehensive audit logging
+│   │
+│   ├── error_handling/
+│   │   └── error_handler.py         # Graceful error recovery
+│   │
+│   └── reporting/
+│       └── weekly_briefing.py       # Weekly CEO Briefing generator
+│
+├── agents/                          # Decision-making agents
+│   ├── __init__.py
+│   ├── base_agent.py                # Base agent class
+│   │
+│   ├── coordinators/
+│   │   ├── ceo_agent.py             # CEO-level strategic agent
+│   │   └── cross_domain_coordinator.py  # Cross-domain coordination
+│   │
+│   └── decision_makers/
+│       ├── personal_agent.py        # Personal productivity agent
+│       ├── business_agent.py        # Business operations agent
+│       ├── social_agent.py          # Social media agent
+│       └── technical_agent.py       # Technical operations agent
+│
+├── skills/                          # Atomic executable capabilities
+│   ├── __init__.py
+│   ├── base_skill.py                # Base skill class
+│   │
+│   ├── personal/
+│   │   ├── email_skill.py           # Email operations
+│   │   ├── calendar_skill.py        # Calendar operations
+│   │   └── task_skill.py            # Task management
+│   │
+│   ├── business/
+│   │   ├── invoicing_skill.py       # Invoice management
+│   │   ├── crm_skill.py             # CRM operations
+│   │   └── analytics_skill.py       # Business analytics
+│   │
+│   ├── social/
+│   │   ├── posting_skill.py         # Social media posting
+│   │   ├── engagement_skill.py      # Engagement management
+│   │   └── scheduling_skill.py      # Content scheduling
+│   │
+│   └── technical/
+│       ├── code_review_skill.py     # Code review operations
+│       ├── deployment_skill.py      # Deployment operations
+│       └── monitoring_skill.py      # System monitoring
+│
+├── integrations/                    # External API integrations
+│   ├── __init__.py
+│   ├── base_integration.py          # Base integration class
+│   │
+│   ├── gmail/
+│   │   └── gmail_client.py          # Gmail API client
+│   ├── calendar/
+│   │   └── google_calendar_client.py # Google Calendar API
+│   ├── facebook/
+│   │   └── facebook_client.py       # Facebook Graph API
+│   ├── instagram/
+│   │   └── instagram_client.py      # Instagram Graph API
+│   ├── twitter/
+│   │   └── twitter_client.py        # Twitter API v2
+│   └── linkedin/
+│       └── linkedin_client.py       # LinkedIn API
+│
+├── mcp_servers/                     # FastAPI-based action servers
+│   ├── __init__.py
+│   ├── base_server.py               # Base MCP server class
+│   │
+│   ├── personal_server/
+│   │   ├── server.py                # Personal domain API (:8001)
+│   │   └── routes/
+│   │       ├── email_routes.py
+│   │       ├── calendar_routes.py
+│   │       └── task_routes.py
+│   │
+│   ├── business_server/
+│   │   ├── server.py                # Business domain API (:8002)
+│   │   └── routes/
+│   │       ├── crm_routes.py
+│   │       └── analytics_routes.py
+│   │
+│   └── social_server/
+│       ├── server.py                # Social domain API (:8003)
+│       └── routes/
+│           ├── facebook_routes.py
+│           ├── instagram_routes.py
+│           ├── twitter_routes.py
+│           └── linkedin_routes.py
+│
+├── AI_Employee_Vault/               # Data storage ONLY (no code)
+│   ├── Inbox/                       # New items
+│   ├── Needs_Action/                # Items requiring action
+│   ├── Pending_Approval/            # Awaiting approval
+│   ├── Approved/                    # Approved items
+│   ├── Plans/                       # Approved plans
+│   ├── Done/                        # Completed items
+│   ├── Rejected/                    # Rejected items
+│   ├── Expired/                     # Expired items
+│   ├── data/                        # Structured data
+│   ├── config/                      # Configuration files
+│   ├── logs/                        # System logs
+│   ├── reports/                     # Generated reports
+│   └── watchers/
+│       └── credentials/             # API credentials (gitignored)
+│
+├── scripts/                         # Utility scripts
+│   ├── setup_gold_tier.py
+│   ├── migrate_silver_to_gold.py
+│   └── health_check.py
+│
+└── tests/                           # Test suite
+    ├── test_orchestrator.py
+    ├── test_agents/
+    ├── test_skills/
+    └── test_integrations/
+```
 
-### Skills (Action Layer)
-- `/process-tasks`: Process items from Needs_Action folder
-- `/create-plan`: Generate detailed action plans
-- `/send-email`: Draft and send emails with approval
-- `/linkedin-post`: Create and post LinkedIn content
-- `/approve-actions`: Execute approved actions
-
-### Approval Workflow
-- Sensitive actions require human approval
-- Draft → Pending_Approval → Human Review → Approved → Execute
-- 24-hour expiration on approval requests
-
-## Quick Start
+## 🚀 Quick Start
 
 ### Prerequisites
+
 - Python 3.9+
-- Node.js 18+
-- Claude Code CLI
-- Obsidian (optional, for GUI)
+- Node.js 18+ (for MCP servers)
+- Git credentials for external APIs
 
 ### Installation
 
 ```bash
-# Clone or download this repository
-cd hacka0-silver
+# Clone the repository
+git clone <repository-url>
+cd hacka0-gold
 
-# Run setup script (Mac/Linux)
-bash setup.sh
+# Install Python dependencies
+pip install -r requirements.txt
 
-# Or manually:
-pip install -r watchers/requirements.txt
-playwright install chromium
-npm install -g pm2
+# Copy environment template
+cp .env.example .env
+
+# Edit .env with your credentials
+# (Use a text editor to fill in API keys, tokens, etc.)
+
+# Initialize the vault structure
+python scripts/setup_gold_tier.py
 ```
 
-### Configuration
+### Running the System
 
-1. **Set up Gmail API**:
-   - Follow guide in `watchers/README.md`
-   - Download credentials to `watchers/credentials/gmail_credentials.json`
-
-2. **Configure environment**:
-   ```bash
-   cp .env.example .env
-   # Edit .env with your settings
-   ```
-
-3. **Customize vault files**:
-   - Edit `AI_Employee_Vault/Company_Handbook.md`
-   - Edit `AI_Employee_Vault/Business_Goals.md`
-
-### Start Watchers
+#### 1. Autonomous Mode (Ralph Wiggum Loop)
 
 ```bash
-# Start all watchers with PM2
-pm2 start watchers/gmail_watcher.py --interpreter python3 --name gmail
-pm2 start watchers/whatsapp_watcher.py --interpreter python3 --name whatsapp
-pm2 start watchers/linkedin_watcher.py --interpreter python3 --name linkedin
-
-# Save configuration
-pm2 save
-pm2 startup
+python main.py --mode autonomous
 ```
 
-### Test Skills
+This starts the continuous autonomous loop that:
+- Observes all data sources every 5 minutes
+- Analyzes for opportunities and issues
+- Makes autonomous decisions
+- Executes actions via skills
+- Learns from outcomes
+- Reports all activities
+
+#### 2. Server Mode (MCP Servers Only)
 
 ```bash
-cd AI_Employee_Vault
+# Start all MCP servers
+python main.py --mode server --servers personal business social
 
-# Process tasks
-claude /process-tasks
-
-# Create a plan
-claude /create-plan "task: prepare monthly report"
-
-# Draft LinkedIn post
-claude /linkedin-post
-
-# Process approvals
-claude /approve-actions
+# Or start individual servers
+python -m mcp_servers.personal_server.server  # Port 8001
+python -m mcp_servers.business_server.server  # Port 8002
+python -m mcp_servers.social_server.server    # Port 8003
 ```
 
-## Project Structure
+#### 3. CLI Mode (Interactive)
 
-```
-hacka0-silver/
-├── AI_Employee_Vault/          # Obsidian vault
-│   ├── Dashboard.md            # Main dashboard
-│   ├── Company_Handbook.md     # Guidelines and rules
-│   ├── Business_Goals.md       # Business objectives
-│   ├── Needs_Action/           # Tasks to process
-│   ├── Plans/                  # Action plans
-│   ├── Pending_Approval/       # Awaiting approval
-│   ├── Approved/               # Approved actions
-│   ├── Done/                   # Completed tasks
-│   └── Logs/                   # Activity logs
-├── watchers/                   # Perception layer
-│   ├── gmail_watcher.py
-│   ├── whatsapp_watcher.py
-│   ├── linkedin_watcher.py
-│   └── requirements.txt
-├── scripts/                    # Helper scripts
-│   ├── gmail_api.py
-│   └── send_smtp.py
-└── .claude/skills/             # Claude Code skills
-    ├── process-tasks/
-    ├── create-plan/
-    ├── send-email/
-    ├── linkedin-post/
-    └── approve-actions/
+```bash
+python main.py --mode cli
 ```
 
-## How It Works
+Then use commands:
+```
+> task Check important emails
+> status
+> briefing
+> quit
+```
 
-### 1. Perception (Watchers)
-Lightweight Python scripts monitor external services:
-- Gmail API for important emails
-- WhatsApp Web via Playwright
-- LinkedIn via Playwright
+#### 4. Single Task Mode
 
-When they detect something important, they create task files in `/Needs_Action/`.
+```bash
+python main.py --mode once --task "Send weekly update email"
+```
 
-### 2. Reasoning (Claude Code)
-Claude Code processes tasks using skills:
-- Reads context from vault files
-- Creates detailed plans
-- Drafts responses
-- Requests approval for sensitive actions
+## 🔧 Configuration
 
-### 3. Action (MCP Servers)
-After approval, Claude executes actions:
-- Sends emails via Gmail API
-- Posts on LinkedIn via Playwright
-- Updates dashboard
-- Logs all activities
+### Environment Variables (.env)
 
-### 4. Human-in-the-Loop
-You maintain control:
-- Review drafts in `/Pending_Approval/`
-- Edit if needed
-- Move to `/Approved/` to execute
-- Move to `/Rejected/` to cancel
+```bash
+# System Settings
+ENVIRONMENT=production
+LOG_LEVEL=INFO
+DEBUG=false
 
-## Silver Tier Checklist
+# Vault Configuration
+VAULT_PATH=./AI_Employee_Vault
 
-- [x] Gmail watcher implemented
-- [x] WhatsApp watcher implemented
-- [x] LinkedIn watcher implemented
-- [x] Task processing skill
-- [x] Plan creation skill
-- [x] Email sending skill
-- [x] LinkedIn posting skill
-- [x] Approval workflow skill
-- [x] Human-in-the-loop approval
-- [x] All functionality as Agent Skills
-- [ ] Scheduling configured (cron/Task Scheduler)
-- [ ] End-to-end testing complete
-- [ ] Demo video recorded
+# Watcher Configuration
+GMAIL_CHECK_INTERVAL=120
+WHATSAPP_CHECK_INTERVAL=30
+LINKEDIN_CHECK_INTERVAL=300
 
-## Documentation
+# Security
+DRY_RUN=false
 
-- **[SILVER_TIER_SETUP.md](SILVER_TIER_SETUP.md)**: Complete setup guide
-- **[watchers/README.md](watchers/README.md)**: Watcher configuration
-- **[Personal AI Employee Hackathon 0.md](Personal%20AI%20Employee%20Hackathon%200_%20Building%20Autonomous%20FTEs%20in%202026.md)**: Full hackathon documentation
+# Autonomous Loop
+AUTONOMOUS_LOOP_ENABLED=true
+CYCLE_INTERVAL=300
+MAX_CONCURRENT_TASKS=10
+LEARNING_ENABLED=true
+PROACTIVE_MODE=true
+DECISION_THRESHOLD=0.7
 
-## Troubleshooting
+# Audit Logging
+AUDIT_ENABLED=true
+AUDIT_LOG_PATH=AI_Employee_Vault/logs/audit.log
+AUDIT_RETENTION_DAYS=90
 
-### Watchers not creating tasks
-- Check logs: `pm2 logs [watcher-name]`
-- Verify credentials configured
-- Ensure vault path is correct
+# Error Handling
+MAX_RETRIES=3
+RETRY_DELAY=1.0
+ESCALATION_ENABLED=true
 
-### Skills not working
-- Verify in vault directory: `cd AI_Employee_Vault`
-- Check skill files exist: `ls .claude/skills/`
-- Run `claude --help` to see available skills
+# Reporting
+WEEKLY_BRIEFING_ENABLED=true
+BRIEFING_OUTPUT_PATH=AI_Employee_Vault/reports
+BRIEFING_DAY=monday
 
-### Approvals not executing
-- Verify files in `/Approved/` folder
-- Check file format (YAML frontmatter)
-- Ensure not expired (24 hours)
+# MCP Server Configuration
+PERSONAL_MCP_HOST=localhost
+PERSONAL_MCP_PORT=8001
+BUSINESS_MCP_HOST=localhost
+BUSINESS_MCP_PORT=8002
+SOCIAL_MCP_HOST=localhost
+SOCIAL_MCP_PORT=8003
+```
 
-## Security
+## 📊 Key Features
 
-- Never commit `.env` file
-- Keep credentials in `credentials/` folder (gitignored)
-- Review approval requests before approving
-- Check logs regularly for unexpected activity
-- Use app-specific passwords for Gmail
+### 1. Ralph Wiggum Autonomous Loop
 
-## Next Steps
+Named after Ralph Wiggum for its simple, continuous operation:
 
-After completing Silver Tier:
-- **Gold Tier**: Add more integrations (Facebook, Twitter, Odoo)
-- **Platinum Tier**: Deploy to cloud for 24/7 operation
-- **Advanced**: Implement Ralph Wiggum loop for full autonomy
+```python
+# The loop continuously:
+while running:
+    observations = await observe()  # Monitor all data sources
+    analysis = await analyze(observations)  # Identify opportunities
+    decisions = await decide(analysis)  # Make decisions
+    actions = await execute(decisions)  # Execute actions
+    learnings = await learn(actions)  # Learn from outcomes
+    await report()  # Report activities
+    await sleep(cycle_interval)
+```
 
-## Support
+### 2. Weekly CEO Briefing Generator
 
-- **Weekly Research Meeting**: Wednesdays 10 PM
-- **Zoom**: https://us06web.zoom.us/j/87188707642
-- **Submit Form**: https://forms.gle/JR9T1SJq5rmQyGkGA
-- **YouTube**: https://www.youtube.com/@panaversity
+Automatically generates comprehensive executive briefings:
 
-## License
+```bash
+# Generate manually
+python main.py --mode cli
+> briefing
 
-This is a hackathon project for educational purposes.
+# Or programmatically
+from core.reporting.weekly_briefing import WeeklyBriefingGenerator
 
-## Acknowledgments
+generator = WeeklyBriefingGenerator()
+result = await generator.generate_briefing(period="weekly")
+```
 
-Built for Panaversity's Personal AI Employee Hackathon 0.
-Powered by Claude Code, Anthropic's official CLI.
+### 3. Comprehensive Audit Logging
+
+All actions are logged with SHA-256 integrity verification:
+
+```python
+from core.audit.audit_logger import AuditLogger
+
+audit = AuditLogger()
+
+# Log system events
+audit.log_system_event(
+    event_type="system_start",
+    description="System initialized"
+)
+
+# Log task events
+audit.log_task_start(
+    task_id="task_123",
+    task_type="email_check",
+    domain="personal"
+)
+
+# Export audit trail
+audit.export_audit_trail(
+    output_path="audit_export.json",
+    start_date="2026-03-01",
+    end_date="2026-03-07"
+)
+```
+
+### 4. Graceful Error Recovery
+
+Intelligent error handling with learning:
+
+```python
+from core.error_handling.error_handler import ErrorHandler
+
+handler = ErrorHandler(audit_logger=audit)
+
+# Handle errors with automatic recovery
+result = await handler.handle_error(
+    error=exception,
+    context="email_send",
+    task=current_task,
+    severity="medium"
+)
+
+# Result includes recovery action
+# - retry: For transient errors
+# - reauth: For authentication failures
+# - fallback: For validation errors
+# - escalate: For critical errors
+```
+
+### 5. Cross-Domain Integration
+
+Seamless Personal + Business coordination:
+
+```python
+# Example: Meeting scheduling affects both domains
+task = {
+    "id": "meeting_123",
+    "type": "schedule_meeting",
+    "description": "Schedule client meeting",
+    "cross_domain": True
+}
+
+# Automatically triggers:
+# - Personal: Update calendar
+# - Business: Notify participants
+# - Personal: Arrange transportation
+# - Business: Update availability
+```
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+pytest
+
+# Run specific test suites
+pytest tests/test_agents/
+pytest tests/test_skills/
+pytest tests/test_integrations/
+
+# Run with coverage
+pytest --cov=. --cov-report=html
+```
+
+## 📈 Monitoring
+
+### System Status
+
+```bash
+python main.py --mode cli
+> status
+```
+
+### Health Check
+
+```bash
+# Check MCP server health
+curl http://localhost:8001/health
+curl http://localhost:8002/health
+curl http://localhost:8003/health
+```
+
+### Audit Trail
+
+```bash
+# View recent audit entries
+cat AI_Employee_Vault/logs/audit.log | tail -100
+
+# Export full audit trail
+python scripts/export_audit.py --output audit_export.json
+```
+
+## 🔒 Security
+
+### Credential Management
+
+- All API credentials stored in `AI_Employee_Vault/watchers/credentials/`
+- This directory is gitignored
+- Credentials are loaded from environment variables or secure vault
+
+### Audit Integrity
+
+- All audit entries are SHA-256 hashed
+- Tamper detection built-in
+- Compliance ready (GDPR, HIPAA, SOC2)
+
+### Access Control
+
+- Dry run mode available for testing
+- Approval workflow for sensitive actions
+- Escalation for critical errors
+
+## 📝 Migration from Silver Tier
+
+```bash
+# Run migration script
+python scripts/migrate_silver_to_gold.py
+
+# This will:
+# 1. Move existing code to new structure
+# 2. Update imports
+# 3. Create missing directories
+# 4. Preserve all data in AI_Employee_Vault
+```
+
+See `MIGRATION_GUIDE.md` for detailed instructions.
+
+## 🤝 Contributing
+
+1. Follow the established architecture patterns
+2. Add tests for new features
+3. Update documentation
+4. Ensure all tests pass
+
+## 📄 License
+
+[Your License Here]
+
+## 🙏 Acknowledgments
+
+- Ralph Wiggum for inspiration (autonomous loop)
+- FastAPI team for excellent framework
+- All open-source contributors
 
 ---
 
-**Status**: Silver Tier 🥈
-**Last Updated**: 2026-02-26
+**Gold Tier Autonomous AI Employee** - Production-ready autonomous operations.
